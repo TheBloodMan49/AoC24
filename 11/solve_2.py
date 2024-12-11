@@ -1,6 +1,7 @@
 from functools import lru_cache
 from collections import defaultdict
 from math import log
+from time import perf_counter
 
 def iteration(data: defaultdict) -> defaultdict:
     new_data = defaultdict(int)
@@ -27,8 +28,12 @@ def main(file: str):
         data = list(map(int, f.read().strip().split(" ")))
         data_dict = defaultdict(int, {elem: 1 for elem in data})
 
+        start = perf_counter()
+
         for _ in range(75):
             data_dict = iteration(data_dict)
+
+        print(f"Time: {perf_counter() - start}")
 
         #print(len(data_dict))
         print(sum(data_dict.values()))
